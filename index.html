@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Valentine?</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -20,26 +22,27 @@
 
     .container {
       text-align: center;
+      padding: 20px;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 40px;
     }
 
     .buttons {
       position: relative;
-      width: 320px;
+      width: 300px;
       height: 140px;
       margin: 0 auto;
     }
 
     button {
-      border: none;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: transform 0.2s ease;
       position: absolute;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
     }
 
     #yes {
@@ -71,9 +74,11 @@
 
     .result img {
       width: 200px;
+      max-width: 80vw;
     }
   </style>
 </head>
+
 <body>
 
   <div class="container" id="questionBox">
@@ -87,7 +92,10 @@
 
   <div class="container result" id="resultBox">
     <h2>YAY 💖</h2>
-    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" />
+    <img
+      src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+      alt="Happy"
+    />
   </div>
 
   <script>
@@ -99,7 +107,7 @@
 
     let yesScale = 1;
 
-    noButton.addEventListener("mouseenter", () => {
+    function moveNoButton() {
       const areaRect = buttonsArea.getBoundingClientRect();
       const noRect = noButton.getBoundingClientRect();
 
@@ -112,9 +120,23 @@
       noButton.style.left = `${randomX}px`;
       noButton.style.top = `${randomY}px`;
 
-      // Yes grows 😈
+      // Grow YES 😈
       yesScale += 0.15;
       yesButton.style.transform = `scale(${yesScale})`;
+
+      // Mobile vibration (if supported)
+      if (navigator.vibrate) {
+        navigator.vibrate(20);
+      }
+    }
+
+    // Desktop
+    noButton.addEventListener("mouseenter", moveNoButton);
+
+    // Mobile
+    noButton.addEventListener("touchstart", (e) => {
+      e.preventDefault(); // prevents accidental click
+      moveNoButton();
     });
 
     yesButton.addEventListener("click", () => {
