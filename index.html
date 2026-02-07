@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6e7, #ffeef6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      position: relative;
+      width: 320px;
+      height: 140px;
+      margin: 0 auto;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: transform 0.2s ease;
+      position: absolute;
+    }
+
+    #yes {
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      background: #ff4d88;
+      color: white;
+      left: 0;
+      top: 40px;
+    }
+
+    #no {
+      padding: 10px 20px;
+      font-size: 0.8rem;
+      background: #ccc;
+      color: #333;
+      right: 0;
+      top: 55px;
+    }
+
+    .result {
+      display: none;
+    }
+
+    .result h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .result img {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="questionBox">
+    <h1>Ram, will you be my valentine? 💌</h1>
+
+    <div class="buttons" id="buttonsArea">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+  </div>
+
+  <div class="container result" id="resultBox">
+    <h2>YAY 💖</h2>
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" />
+  </div>
+
+  <script>
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const buttonsArea = document.getElementById("buttonsArea");
+    const questionBox = document.getElementById("questionBox");
+    const resultBox = document.getElementById("resultBox");
+
+    let yesScale = 1;
+
+    noButton.addEventListener("mouseenter", () => {
+      const areaRect = buttonsArea.getBoundingClientRect();
+      const noRect = noButton.getBoundingClientRect();
+
+      const maxX = areaRect.width - noRect.width;
+      const maxY = areaRect.height - noRect.height;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+
+      // Yes grows 😈
+      yesScale += 0.15;
+      yesButton.style.transform = `scale(${yesScale})`;
+    });
+
+    yesButton.addEventListener("click", () => {
+      questionBox.style.display = "none";
+      resultBox.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
